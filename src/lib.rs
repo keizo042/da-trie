@@ -2,3 +2,5 @@
 
 pub mod c;
 pub mod darts;
+
+mod trie;

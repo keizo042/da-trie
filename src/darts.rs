@@ -1,3 +1,4 @@
+use crate::trie;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::string::String;
@@ -5,8 +6,8 @@ use std::vec::Vec;
 
 #[derive(Default)]
 pub struct Darts {
-    dat: DoubleArrayTrie,
-    llt: LinkedListTrie,
+    dat: trie::DoubleArrayTrie,
+    llt: trie::LinkedListTrie,
     used: Vec<bool>,
     next_check_pos: i64,
     key: DartsKeySlice,
@@ -16,8 +17,8 @@ pub struct Darts {
 impl Darts {
     pub fn new() -> Darts {
         Darts {
-            dat: DoubleArrayTrie::new(),
-            llt: LinkedListTrie::new(),
+            dat: trie::DoubleArrayTrie::new(),
+            llt: trie::LinkedListTrie::new(),
             key: DartsKeySlice::new(),
             next_check_pos: 0,
             output: HashMap::new(),
@@ -27,55 +28,6 @@ impl Darts {
 
     pub fn build(_keywords: Vec<Vec<u8>>) -> Option<()> {
         unimplemented!();
-    }
-}
-
-#[derive(Default)]
-pub struct DoubleArrayTrie {
-    base: Vec<i64>,
-    check: Vec<i64>,
-}
-
-impl DoubleArrayTrie {
-    fn new() -> DoubleArrayTrie {
-        DoubleArrayTrie {
-            base: Vec::new(),
-            check: Vec::new(),
-        }
-    }
-}
-
-#[derive(Default)]
-pub struct LikedListTrieNode {
-    code: char,
-    depth: i64,
-    left: i64,
-    index: i64,
-    base: i64,
-    children: Vec<LikedListTrieNode>,
-}
-
-impl LikedListTrieNode {
-    pub fn new() -> LikedListTrieNode {
-        LikedListTrieNode {
-            children: Vec::new(),
-            code: ' ',
-            depth: 0,
-            left: 0,
-            index: 0,
-            base: 0,
-        }
-    }
-}
-
-#[derive(Default)]
-pub struct LinkedListTrie {
-    root: Option<LikedListTrieNode>,
-}
-
-impl LinkedListTrie {
-    pub fn new() -> LinkedListTrie {
-        LinkedListTrie { root: None }
     }
 }
 

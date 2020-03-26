@@ -14,7 +14,7 @@ pub struct Darts {
 
 impl Darts {
     pub fn new() -> Darts {
-        Darts{
+        Darts {
             dat: DoubleArrayTrie::new(),
             llt: LinkedListTrie::new(),
             key: DartsKeySlice::new(),
@@ -24,8 +24,7 @@ impl Darts {
         }
     }
 
-    pub fn build(keywords: Vec<Vec<u8>>)-> Option<()>{
-    }
+    pub fn build(keywords: Vec<Vec<u8>>) -> Option<()> {}
 }
 
 pub struct DoubleArrayTrie {
@@ -34,8 +33,8 @@ pub struct DoubleArrayTrie {
 }
 
 impl DoubleArrayTrie {
-    pub fn new() -> DoubleArrayTrie{
-        DoubleArrayTrie{
+    pub fn new() -> DoubleArrayTrie {
+        DoubleArrayTrie {
             base: Vec::new(),
             check: Vec::new(),
         }
@@ -53,17 +52,16 @@ pub struct LikedListTrieNode {
 
 impl LikedListTrieNode {
     pub fn new() -> LikedListTrieNode {
-        LikedListTrieNode{
+        LikedListTrieNode {
             children: Vec::new(),
             code: ' ',
-            depth:0,
+            depth: 0,
             left: 0,
             index: 0,
-            base:0,
+            base: 0,
         }
     }
 }
-
 
 pub struct LinkedListTrie {
     root: Option<LikedListTrieNode>,
@@ -71,9 +69,7 @@ pub struct LinkedListTrie {
 
 impl LinkedListTrie {
     pub fn new() -> LinkedListTrie {
-        LinkedListTrie{
-            root: None,
-        }
+        LinkedListTrie { root: None }
     }
 }
 

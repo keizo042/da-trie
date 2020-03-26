@@ -1,12 +1,12 @@
 #[derive(Default)]
-pub struct DoubleArrayTrie {
+pub struct DoubleArray {
     base: Vec<i64>,
     check: Vec<i64>,
 }
 
-impl DoubleArrayTrie {
-    pub fn new() -> DoubleArrayTrie {
-        DoubleArrayTrie {
+impl DoubleArray {
+    pub fn new() -> DoubleArray {
+        DoubleArray {
             base: Vec::new(),
             check: Vec::new(),
         }
@@ -14,18 +14,18 @@ impl DoubleArrayTrie {
 }
 
 #[derive(Default)]
-pub struct LikedListTrieNode {
+pub struct LikedListNode {
     code: char,
     depth: i64,
     left: i64,
     index: i64,
     base: i64,
-    children: Vec<LikedListTrieNode>,
+    children: Vec<LikedListNode>,
 }
 
-impl LikedListTrieNode {
-    pub fn new() -> LikedListTrieNode {
-        LikedListTrieNode {
+impl LikedListNode {
+    pub fn new() -> LikedListNode {
+        LikedListNode {
             children: Vec::new(),
             code: ' ',
             depth: 0,
@@ -37,12 +37,12 @@ impl LikedListTrieNode {
 }
 
 #[derive(Default)]
-pub struct LinkedListTrie {
-    root: Option<LikedListTrieNode>,
+pub struct LinkedList {
+    root: Option<LikedListNode>,
 }
 
-impl LinkedListTrie {
-    pub fn new() -> LinkedListTrie {
-        LinkedListTrie { root: None }
+impl LinkedList {
+    pub fn new() -> LinkedList {
+        LinkedList { root: None }
     }
 }

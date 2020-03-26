@@ -6,8 +6,8 @@ use std::vec::Vec;
 
 #[derive(Default)]
 pub struct Darts {
-    dat: trie::DoubleArrayTrie,
-    llt: trie::LinkedListTrie,
+    dat: trie::DoubleArray,
+    llt: trie::LinkedList,
     used: Vec<bool>,
     next_check_pos: i64,
     key: KeySlice,
@@ -17,8 +17,8 @@ pub struct Darts {
 impl Darts {
     pub fn new() -> Darts {
         Darts {
-            dat: trie::DoubleArrayTrie::new(),
-            llt: trie::LinkedListTrie::new(),
+            dat: trie::DoubleArray::new(),
+            llt: trie::LinkedList::new(),
             key: KeySlice::new(),
             next_check_pos: 0,
             output: HashMap::new(),

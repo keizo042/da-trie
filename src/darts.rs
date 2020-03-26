@@ -1,3 +1,4 @@
+//use crate::c;
 use crate::trie;
 use std::cmp::Ordering;
 use std::collections::HashMap;
@@ -26,7 +27,34 @@ impl Darts {
         }
     }
 
-    pub fn build(_keywords: Vec<Vec<u8>>) -> Option<()> {
+    pub fn build(
+        &mut self,
+        keywords: Vec<String>,
+    ) -> Result<(&trie::DoubleArray, &trie::LinkedList), ()> {
+        if keywords.is_empty() {
+            return Result::Err(());
+        }
+        self.init();
+        self.key.sort();
+        let mut s = self.fetch().unwrap();
+        let sb = &mut s;
+        self.insert(sb).unwrap();
+        Result::Ok((&self.dat, &self.llt))
+    }
+
+    fn init(&mut self) {
+        unimplemented!();
+    }
+
+    fn resize(&mut self, _size: usize) {
+        unimplemented!();
+    }
+
+    fn fetch(&mut self) -> Result<Vec<trie::LinkedList>, ()> {
+        Result::Ok(Vec::new())
+    }
+
+    fn insert(&mut self, _parent: &mut Vec<trie::LinkedList>) -> Result<(), ()> {
         unimplemented!();
     }
 }

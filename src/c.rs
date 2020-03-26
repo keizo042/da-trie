@@ -1,4 +1,4 @@
-const RESIZE_DELTA: i64 = 64;
-const END_NODE_BASE: i64 = -1;
-const ROOT_NODE_BASE: i64 = 1;
-const ROOT_NODE_INDEX: i64 = 0;
+pub const RESIZE_DELTA: usize = 64;
+pub const END_NODE_BASE: i64 = -1;
+pub const ROOT_NODE_BASE: i64 = 1;
+pub const ROOT_NODE_INDEX: i64 = 0;

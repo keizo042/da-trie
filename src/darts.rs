@@ -10,7 +10,7 @@ pub struct Darts {
     llt: trie::LinkedListTrie,
     used: Vec<bool>,
     next_check_pos: i64,
-    key: DartsKeySlice,
+    key: KeySlice,
     output: HashMap<i64, String>,
 }
 
@@ -19,7 +19,7 @@ impl Darts {
         Darts {
             dat: trie::DoubleArrayTrie::new(),
             llt: trie::LinkedListTrie::new(),
-            key: DartsKeySlice::new(),
+            key: KeySlice::new(),
             next_check_pos: 0,
             output: HashMap::new(),
             used: Vec::new(),
@@ -32,27 +32,27 @@ impl Darts {
 }
 
 #[derive(Default)]
-struct DartsKey(String);
+struct Key(String);
 
-impl DartsKey {
+impl Key {
     pub fn len(&self) -> usize {
         self.0.len()
     }
 }
 
 #[derive(Default)]
-struct DartsKeySlice(Vec<DartsKey>);
+struct KeySlice(Vec<Key>);
 
-impl DartsKeySlice {
-    pub fn new() -> DartsKeySlice {
-        DartsKeySlice(Vec::new())
+impl KeySlice {
+    pub fn new() -> KeySlice {
+        KeySlice(Vec::new())
     }
 
     pub fn sort(&mut self) {
-        self.0.sort_by(DartsKeySlice::f)
+        self.0.sort_by(KeySlice::f)
     }
 
-    fn f(_a: &DartsKey, _b: &DartsKey) -> Ordering {
+    fn f(_a: &Key, _b: &Key) -> Ordering {
         Ordering::Less
     }
 }

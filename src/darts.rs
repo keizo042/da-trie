@@ -45,6 +45,7 @@ impl DoubleArrayTrie {
     }
 }
 
+#[derive(Default)]
 pub struct LikedListTrieNode {
     code: char,
     depth: i64,

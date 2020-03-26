@@ -20,13 +20,11 @@ pub struct LikedListNode {
     left: i64,
     index: i64,
     base: i64,
-    children: Vec<LikedListNode>,
 }
 
 impl LikedListNode {
     pub fn new() -> LikedListNode {
         LikedListNode {
-            children: Vec::new(),
             code: ' ',
             depth: 0,
             left: 0,
@@ -38,11 +36,15 @@ impl LikedListNode {
 
 #[derive(Default)]
 pub struct LinkedList {
-    root: Option<LikedListNode>,
+    head: Option<LikedListNode>,
+    tails: Vec<LikedListNode>,
 }
 
 impl LinkedList {
     pub fn new() -> LinkedList {
-        LinkedList { root: None }
+        LinkedList {
+            head: None,
+            tails: Vec::new(),
+        }
     }
 }

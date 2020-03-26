@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::string::String;
 use std::vec::Vec;
 
+#[derive(Default)]
 pub struct Darts {
     dat: DoubleArrayTrie,
     llt: LinkedListTrie,
@@ -24,16 +25,19 @@ impl Darts {
         }
     }
 
-    pub fn build(keywords: Vec<Vec<u8>>) -> Option<()> {}
+    pub fn build(_keywords: Vec<Vec<u8>>) -> Option<()> {
+        unimplemented!();
+    }
 }
 
+#[derive(Default)]
 pub struct DoubleArrayTrie {
     base: Vec<i64>,
     check: Vec<i64>,
 }
 
 impl DoubleArrayTrie {
-    pub fn new() -> DoubleArrayTrie {
+    fn new() -> DoubleArrayTrie {
         DoubleArrayTrie {
             base: Vec::new(),
             check: Vec::new(),
@@ -63,6 +67,7 @@ impl LikedListTrieNode {
     }
 }
 
+#[derive(Default)]
 pub struct LinkedListTrie {
     root: Option<LikedListTrieNode>,
 }
@@ -73,26 +78,28 @@ impl LinkedListTrie {
     }
 }
 
+#[derive(Default)]
 struct DartsKey(String);
 
 impl DartsKey {
     pub fn len(&self) -> usize {
-        return self.0.len();
+        self.0.len()
     }
 }
 
+#[derive(Default)]
 struct DartsKeySlice(Vec<DartsKey>);
 
 impl DartsKeySlice {
     pub fn new() -> DartsKeySlice {
-        return DartsKeySlice(Vec::new());
+        DartsKeySlice(Vec::new())
     }
 
-    pub fn sort(&mut self) -> () {
-        self.0.sort_by(DartsKeySlice::f);
+    pub fn sort(&mut self) {
+        self.0.sort_by(DartsKeySlice::f)
     }
 
     fn f(_a: &DartsKey, _b: &DartsKey) -> Ordering {
-        return Ordering::Less;
+        Ordering::Less
     }
 }

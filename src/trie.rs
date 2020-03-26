@@ -15,11 +15,13 @@ impl DoubleArray {
 
 #[derive(Default)]
 pub struct LikedListNode {
-    code: char,
-    depth: i64,
-    left: i64,
-    index: i64,
-    base: i64,
+    pub code: char,
+    pub depth: i64,
+    pub left: i64,
+    pub right: i64,
+    pub index: i64,
+    pub base: i64,
+    pub subkey: Vec<char>,
 }
 
 impl LikedListNode {
@@ -28,16 +30,18 @@ impl LikedListNode {
             code: ' ',
             depth: 0,
             left: 0,
+            right: 0,
             index: 0,
             base: 0,
+            subkey: Vec::new(),
         }
     }
 }
 
 #[derive(Default)]
 pub struct LinkedList {
-    head: Option<LikedListNode>,
-    tails: Vec<LikedListNode>,
+    pub head: Option<LikedListNode>,
+    pub tails: Vec<LikedListNode>,
 }
 
 impl LinkedList {

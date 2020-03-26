@@ -2,6 +2,7 @@ use crate::c;
 use crate::trie;
 use std::cmp::Ordering;
 use std::collections::HashMap;
+use std::convert::TryInto;
 use std::string::String;
 use std::vec::Vec;
 
@@ -34,9 +35,26 @@ impl Darts {
         if keywords.is_empty() {
             return Result::Err(());
         }
+        self.dat = trie::DoubleArray::new();
         self.resize(c::RESIZE_DELTA);
-        self.init()?;
+        for keyword in keywords.to_vec() {
+            self.key.0.push(Key(keyword));
+        }
         self.key.sort();
+        self.output = HashMap::with_capacity(self.key.0.len());
+        self.dat.base[0] = c::ROOT_NODE_BASE;
+        self.next_check_pos = 0;
+        self.key.sort();
+
+        let mut head = trie::LikedListNode::new();
+        head.depth = 0;
+        head.left = 0;
+        head.right = keywords.len().try_into().unwrap();
+        head.index = c::ROOT_NODE_INDEX;
+        let mut llt = trie::LinkedList::new();
+        llt.head = Option::Some(head);
+        self.llt = llt;
+
         let mut s = self.fetch()?;
         let sb = &mut s;
         self.insert(sb)?;

@@ -1,7 +1,7 @@
 #[derive(Default)]
 pub struct DoubleArray {
-    base: Vec<i64>,
-    check: Vec<i64>,
+    pub base: Vec<i64>,
+    pub check: Vec<i64>,
 }
 
 impl DoubleArray {

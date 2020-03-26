@@ -1,4 +1,4 @@
-//use crate::c;
+use crate::c;
 use crate::trie;
 use std::cmp::Ordering;
 use std::collections::HashMap;
@@ -34,20 +34,28 @@ impl Darts {
         if keywords.is_empty() {
             return Result::Err(());
         }
-        self.init();
+        self.resize(c::RESIZE_DELTA);
+        self.init()?;
         self.key.sort();
-        let mut s = self.fetch().unwrap();
+        let mut s = self.fetch()?;
         let sb = &mut s;
-        self.insert(sb).unwrap();
+        self.insert(sb)?;
         Result::Ok((&self.dat, &self.llt))
     }
 
-    fn init(&mut self) {
+    fn init(&mut self) -> Result<(), ()> {
         unimplemented!();
     }
 
-    fn resize(&mut self, _size: usize) {
-        unimplemented!();
+    fn resize(&mut self, size: usize) {
+        self.dat
+            .base
+            .append(&mut Vec::with_capacity(size - self.dat.base.len()));
+        self.dat
+            .check
+            .append(&mut Vec::with_capacity(size - self.dat.check.len()));
+        self.used
+            .append(&mut Vec::with_capacity(size - self.used.len()));
     }
 
     fn fetch(&mut self) -> Result<Vec<trie::LinkedList>, ()> {

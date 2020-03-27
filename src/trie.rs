@@ -4,6 +4,11 @@ use crate::value;
 use std::cmp::max;
 use std::ops::Neg;
 
+pub struct ResultPair {
+    pub prefix_len: usize,
+    pub value: value::Value,
+}
+
 pub struct Trie {
     key: Vec<String>,
     freq: Vec<usize>,
@@ -47,6 +52,31 @@ impl Trie {
         }
         d.insert(sibilings.unwrap());
         Result::Ok(d.da)
+    }
+
+    pub fn common_prefix_search(&mut self, key: String, node_pos: usize) -> Result<ResultPair, ()> {
+        let b = self.da.base[node_pos];
+        let result: Vec<ResultPair>;
+        let mut p: isize;
+        for i in 0..key.len() {
+            p = b;
+            let n = self.da.base[p as usize];
+            if b == self.da.check[p as usize] && n < 0 {
+                let pair = ResultPair {
+                    prefix_len: i,
+                    value: self.value_pool[-n - 1],
+                };
+                result.push(pair);
+                unimplemented!();
+            }
+            unimplemented!();
+        }
+        return Result::Ok(result);
+    }
+
+    pub fn extract_match_search(&mut self, key: String, node_pos: usize) -> bool {
+        unimplemented!();
+        return false;
     }
 
     fn fetch(&mut self, parent: node::Node) -> Option<Vec<node::Node>> {

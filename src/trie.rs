@@ -25,11 +25,24 @@ impl Trie {
         }
     }
 
-    pub fn build(key: Vec<String>, freq: Vec<usize>) -> Result<Self, ()> {
-        let mut d = Self::new();
+    pub fn build(key: Vec<String>, freq: Vec<usize>) -> Result<da::DoubleArray, ()> {
+        let default_da_len = 512;
+        let mut d = Trie::new();
         d.key = key;
         d.freq = freq;
-        unimplemented!();
+        d.da.resize(default_da_len);
+        d.da.base[0] = 1;
+        d.next_check_pos = 0;
+        let mut root = node::Node::new();
+        root.depth = 0;
+        root.right = 0;
+        root.left = 0;
+        let sibilings = d.fetch(root);
+        if sibilings.is_none() {
+            return Result::Err(());
+        }
+        d.insert(sibilings.unwrap());
+        Result::Ok(d.da)
     }
 
     fn fetch(&mut self, parent: node::Node) -> Option<Vec<node::Node>> {
@@ -60,7 +73,7 @@ impl Trie {
         Option::Some(siblings)
     }
 
-    fn insert() -> isize {
+    fn insert(&self, sibling: Vec<node::Node>) -> isize {
         unimplemented!();
     }
 }

@@ -15,4 +15,13 @@ impl Node {
             right: 0,
         }
     }
+
+    pub fn clone(&self) -> Node {
+        Node {
+            code: self.code,
+            depth: self.depth,
+            left: self.left,
+            right: self.right,
+        }
+    }
 }

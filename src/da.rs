@@ -1,6 +1,6 @@
 pub struct DoubleArray {
     pub base: Vec<isize>,
-    pub check: Vec<isize>,
+    pub check: Vec<usize>,
     pub used: Vec<bool>,
 }
 

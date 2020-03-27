@@ -1,15 +1,17 @@
 use crate::da;
 use crate::node;
 use crate::value;
+use std::cmp::max;
 
 pub struct Trie {
     key: Vec<String>,
     freq: Vec<usize>,
     da: da::DoubleArray,
     value_pool: Vec<value::Value>,
-    next_check_pos: isize,
+    next_check_pos: usize,
     left: i64,
     right: i64,
+    size: usize,
 }
 
 impl Trie {
@@ -22,6 +24,7 @@ impl Trie {
             next_check_pos: 0,
             left: 0,
             right: 0,
+            size: 0,
         }
     }
 
@@ -73,7 +76,68 @@ impl Trie {
         Option::Some(siblings)
     }
 
-    fn insert(&self, sibling: Vec<node::Node>) -> isize {
-        unimplemented!();
+    fn insert(&mut self, siblings: Vec<node::Node>) -> usize {
+        let mut begin: usize = 0;
+        let mut pos: usize = max(siblings[0].code as usize + 1, self.next_check_pos as usize);
+        let mut non_zero_num = 0;
+        let mut first = false;
+        loop {
+            pos += 1;
+
+            if self.da.base.len() <= pos as usize {
+                self.da.resize((pos + 1) as usize);
+            }
+
+            if self.da.check[pos] > 0 {
+                non_zero_num += 1;
+                continue;
+            } else if !first {
+                self.next_check_pos = pos;
+                first = true;
+            }
+
+            begin = pos - siblings[0].code as usize;
+            let c = begin + siblings[siblings.len() - 1].code as usize;
+            if self.da.base.len() <= c {
+                let len = c + 400;
+                self.da.resize(len);
+            }
+
+            if self.da.used[begin] {
+                continue;
+            }
+
+            for i in 1..siblings.len() {
+                if self.da.check[begin + siblings[i].code as usize] != 0 {
+                    continue;
+                }
+            }
+
+            if non_zero_num as f64 / (pos - self.next_check_pos - 1) as f64 > 0.95 {
+                self.next_check_pos = pos;
+            }
+            self.da.used[begin] = true;
+            self.size = max(
+                self.size,
+                begin + siblings[siblings.len() - 1].code as usize + 1,
+            );
+
+            for i in 0..siblings.len() {
+                self.da.check[begin + siblings[i].code as usize] = begin;
+            }
+
+            for i in 0..siblings.len() {
+                let new_siblings = self.fetch(siblings[i]).unwrap_or(vec![]);
+                if new_siblings.is_empty() {
+                    let v: value::Value;
+                    v.freq = self.freq[siblings[i].left];
+                    self.da.base[begin + siblings[i].code as usize] = -self.value_pool.len() - 1;
+                } else {
+                    let h = self.insert(new_siblings);
+                    self.da.base[begin + siblings[i].code as usize] = h
+                }
+            }
+            return begin;
+        }
     }
 }

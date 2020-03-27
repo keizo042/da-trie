@@ -1,3 +1,3 @@
 pub struct Value {
-    freq: usize,
+    pub freq: usize,
 }

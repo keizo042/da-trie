@@ -78,7 +78,7 @@ impl Trie {
     }
 
     fn insert(&mut self, siblings: Vec<node::Node>) -> isize {
-        let mut begin: isize = 0;
+        let mut begin: isize;
         let mut pos: isize = max(siblings[0].code as isize + 1, self.next_check_pos);
         let mut non_zero_num = 0;
         let mut first = false;

@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-pub mod darts;
-
-mod c;
+mod da;
+mod node;
 mod trie;
+mod value;

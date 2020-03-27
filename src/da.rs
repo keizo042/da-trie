@@ -1,7 +1,7 @@
 pub struct DoubleArray {
-    base: Vec<isize>,
-    check: Vec<isize>,
-    used: Vec<bool>,
+    pub base: Vec<isize>,
+    pub check: Vec<isize>,
+    pub used: Vec<bool>,
 }
 
 impl DoubleArray {

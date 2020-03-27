@@ -14,7 +14,15 @@ pub struct Trie {
 
 impl Trie {
     pub fn new() -> Self {
-        unimplemented!();
+        Trie {
+            key: Vec::new(),
+            freq: Vec::new(),
+            da: da::DoubleArray::new(),
+            value_pool: Vec::new(),
+            next_check_pos: 0,
+            left: 0,
+            right: 0,
+        }
     }
 
     pub fn build(key: Vec<String>, freq: Vec<usize>) -> Result<Self, ()> {

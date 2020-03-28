@@ -175,8 +175,8 @@ impl Trie {
                 continue;
             }
 
-            for i in 1..siblings.len() {
-                if self.da.check[begin as usize + siblings[i].code as usize] != 0 {
+            for s in &siblings {
+                if self.da.check[begin as usize + s.code as usize] != 0 {
                     continue;
                 }
             }
@@ -190,21 +190,20 @@ impl Trie {
                 begin + siblings[siblings.len() as usize - 1].code as isize + 1,
             );
 
-            for i in 0..siblings.len() {
-                self.da.check[begin as usize + siblings[i].code as usize] = begin as isize;
+            for s in &siblings {
+                self.da.check[begin as usize + s.code as usize] = begin as isize;
             }
 
-            for i in 0..siblings.len() {
-                let s = siblings[i].clone();
-                let new_siblings = self.fetch(s).unwrap_or(Vec::new());
+            for s in &siblings {
+                let new_siblings = self.fetch(s.clone()).unwrap_or(Vec::new());
                 if new_siblings.is_empty() {
                     let mut v = value::Value::new();
-                    v.freq = self.freq[siblings[i].left];
+                    v.freq = self.freq[s.left];
                     let n = Neg::neg(self.value_pool.len() as isize) - 1;
-                    self.da.base[begin as usize + siblings[i].code as usize] = n;
+                    self.da.base[begin as usize + s.code as usize] = n;
                 } else {
                     let h = self.insert(new_siblings);
-                    self.da.base[begin as usize + siblings[i].code as usize] = h
+                    self.da.base[begin as usize + s.code as usize] = h
                 }
             }
             return begin;

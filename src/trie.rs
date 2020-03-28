@@ -54,29 +54,66 @@ impl Trie {
         Result::Ok(d.da)
     }
 
-    pub fn common_prefix_search(&mut self, key: String, node_pos: usize) -> Result<ResultPair, ()> {
-        let b = self.da.base[node_pos];
-        let result: Vec<ResultPair>;
+    pub fn common_prefix_search(
+        &mut self,
+        key: String,
+        node_pos: usize,
+    ) -> Result<Vec<ResultPair>, ()> {
+        let mut b = self.da.base[node_pos];
+        let mut result: Vec<ResultPair> = vec![];
         let mut p: isize;
         for i in 0..key.len() {
             p = b;
             let n = self.da.base[p as usize];
             if b == self.da.check[p as usize] && n < 0 {
+                let v = self.value_pool[(n.abs() - 1) as usize].clone();
                 let pair = ResultPair {
                     prefix_len: i,
-                    value: self.value_pool[-n - 1],
+                    value: v,
                 };
                 result.push(pair);
-                unimplemented!();
             }
-            unimplemented!();
+
+            p = b + key.len() as isize + 1;
+            if p >= self.da.check.len() as isize {
+                b = self.da.base[p as usize];
+            } else {
+                return Result::Ok(result);
+            }
         }
-        return Result::Ok(result);
+
+        p = b;
+        let n = self.da.base[p as usize];
+        if b == self.da.check[p as usize] && n < 0 {
+            let v = self.value_pool.get((n.abs() - 1) as usize).unwrap();
+            let vc = v.clone();
+            let pair = ResultPair {
+                prefix_len: key.len(),
+                value: vc,
+            };
+            result.push(pair);
+        }
+        Result::Ok(result)
     }
 
     pub fn extract_match_search(&mut self, key: String, node_pos: usize) -> bool {
-        unimplemented!();
-        return false;
+        let mut p: usize;
+        let mut b = self.da.base[node_pos];
+        for i in 0..key.len() {
+            let tmp = b + key.chars().nth(i).unwrap() as isize + 1;
+            p = tmp as usize;
+            if b == self.da.check[p] {
+                b = self.da.base[p];
+            } else {
+                return false;
+            }
+        }
+        p = b as usize;
+        let n = self.da.base[p];
+        if b == self.da.check[p] && n < 0 {
+            return true;
+        }
+        false
     }
 
     fn fetch(&mut self, parent: node::Node) -> Option<Vec<node::Node>> {
@@ -172,5 +209,15 @@ impl Trie {
             }
             return begin;
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    fn common_prexi_match() {
+        unimplemented!();
+    }
+    fn exact_match_search() {
+        unimplemented!();
     }
 }
